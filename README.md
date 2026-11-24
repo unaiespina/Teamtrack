@@ -4,6 +4,8 @@ Prototipo web para organizar equipos deportivos, temporadas, plantilla, entrenam
 
 ## Empezar
 
+Abre el sitio de TeamTrack desde [esta URL privada](https://teamtrack-coach.fabledchipmunk4.chatgpt.site). Requiere iniciar sesión con la cuenta propietaria. GitHub muestra el código fuente de `index.html`; no lo ejecuta como página web.
+
 Abre `index.html` en un navegador moderno. No hay que instalar dependencias ni configurar un servidor para probar el prototipo.
 
 La primera apertura muestra información de ejemplo de un equipo de baloncesto. Se puede cambiar, añadir equipos y gestionar sus integrantes y actividad. Los cambios se guardan en el almacenamiento local del navegador.
