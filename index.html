@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f6f8" />
+    <meta name="description" content="TeamTrack ayuda a entrenadores a organizar temporadas, plantilla, calendario y registros del equipo." />
+    <title>TeamTrack — gestión del equipo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#inicio" aria-label="TeamTrack, inicio">
+          <span class="brand-mark"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 7.5h22M5 16h22M5 24.5h22M11 4v24M21 4v24" /></svg></span>
+          <span>team<span class="brand-light">track</span></span>
+        </a>
+        <div class="workspace-label">ESPACIO DE TRABAJO</div>
+        <button class="team-switcher" id="team-switcher" aria-label="Cambiar de equipo">
+          <span class="team-avatar">BC</span>
+          <span class="team-switch-copy"><b id="sidebar-team-name">Club Basket</b><small id="sidebar-team-season">Temporada 2026/27</small></span>
+          <svg class="chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+        </button>
+        <nav class="primary-nav" aria-label="Navegación principal">
+          <button class="nav-item active" data-view="dashboard"><span class="nav-icon">⌂</span>Resumen</button>
+          <button class="nav-item" data-view="roster"><span class="nav-icon">♙</span>Plantilla<span class="nav-count" id="nav-roster-count">0</span></button>
+          <button class="nav-item" data-view="calendar"><span class="nav-icon">▦</span>Calendario</button>
+          <button class="nav-item" data-view="history"><span class="nav-icon">◷</span>Historial</button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-tip"><span class="tip-spark">✳</span><b>Todo el equipo, en un solo lugar</b><p>Registra la actividad para tener un historial claro de la temporada.</p></div>
+          <button class="profile-button"><span class="profile-avatar">UE</span><span><b>Unai Espina</b><small>Entrenador</small></span><span class="profile-dots">···</span></button>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="topbar">
+          <button class="mobile-menu" id="mobile-menu" aria-label="Abrir menú">☰</button>
+          <div class="breadcrumb"><span>Equipo</span><span class="crumb-slash">/</span><b id="breadcrumb-view">Resumen</b></div>
+          <div class="topbar-right"><span class="local-badge"><i></i> Guardado en este dispositivo</span><button class="icon-button" id="export-data" aria-label="Exportar datos" title="Exportar una copia JSON">⇩</button></div>
+        </header>
+        <div class="content" id="app-content"></div>
+        <footer class="footer-note"><span>TeamTrack · Prototipo de Incremento 2</span><span>Los registros se guardan localmente en este navegador.</span></footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="modal-backdrop" id="modal-backdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-head"><div><span class="eyebrow" id="modal-eyebrow">TEAMTRACK</span><h2 id="modal-title">Nuevo registro</h2></div><button class="icon-button close-modal" aria-label="Cerrar">×</button></div>
+        <div id="modal-body"></div>
+      </section>
+    </div>
+    <script src="app.js" defer></script>
+  </body>
+</html>
