@@ -18,9 +18,9 @@ These are product scope priorities, not effort estimates or delivery commitments
 
 | Rank | ID | Feature | Stories | Priority | Prototype status | Dependencies / notes |
 |---:|---|---|---|---|---|---|
-| 1 | F-01 | Team and season workspace | US-01–02 | P0 | Partially implemented | High; editing season dates is not exposed in the UI. |
+| 1 | F-01 | Team and season workspace | US-01–02 | P0 | Implemented in prototype | High; season dates are optional and editable. |
 | 2 | F-02 | Multi-sport roster and lifecycle | US-03–05 | P0 | Implemented in prototype | High; optional member fields and deactivation preserve history. |
-| 3 | F-03 | Training and match calendar | US-06–08 | P0 | Implemented in prototype | Depends on F-01; month navigation is not restricted to season dates. |
+| 3 | F-03 | Training and match calendar | US-06–08 | P0 | Implemented in prototype | Depends on F-01; month navigation observes configured season date boundaries. |
 | 4 | F-04 | Attendance and manual notes | US-09–10 | P0 | Implemented in prototype | Depends on roster and events; missing entries remain unregistered. |
 | 5 | F-05 | Multi-sport results and history | US-11–12 | P0 | Implemented in prototype | Depends on events; score component labels can be configured. |
 | 6 | F-06 | Team dashboard and JSON export | US-13–14 | P1 | Implemented in prototype | Depends on F-01–05; export is a manual local copy, not an automatic server backup. |
@@ -68,7 +68,7 @@ The academic MVP scope and feature prioritization are complete. Commercial relea
 
 | Feature | Increment 4 stories | Scenarios | Status |
 |---|---|---|---|
-| F-01 | US-01–02 | PS-01 | Partial prototype |
+| F-01 | US-01–02 | PS-01 | Prototype |
 | F-02 | US-03–05 | PS-02 | Prototype |
 | F-03 | US-06–08 | PS-03 | Prototype |
 | F-04 | US-09–10 | PS-04, PS-05 | Prototype |

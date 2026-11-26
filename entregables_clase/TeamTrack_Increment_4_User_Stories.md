@@ -37,7 +37,7 @@ This increment translates the persona scenarios from Increment 3 into atomic, te
 
 **Acceptance criteria:**
 1. The dashboard and workspace header clearly display the active team name, sport, and season.
-2. Editing the team name, sport, or optional season start/end dates updates the displayed details without losing linked members, events, or historical records. The current UI supports team name, sport and season name; date editing is not yet exposed in the prototype.
+2. Editing the team name, sport, or optional season start/end dates updates the displayed details without losing linked members, events, or historical records.
 3. If both season dates are entered, the system rejects an end date earlier than the start date.
 
 ---
@@ -90,7 +90,7 @@ This increment translates the persona scenarios from Increment 3 into atomic, te
 
 **Acceptance criteria:**
 1. Events are ordered chronologically by date and time and visually tagged by type (`Training` vs. `Match`) and status (`Scheduled` vs. `Cancelled`).
-2. Month navigation controls allow reviewing previous and future months. The prototype does not yet restrict navigation to the season date range.
+2. Month navigation controls allow reviewing previous and future months within the configured season date range.
 3. If a month has no scheduled events, an informative empty state is displayed.
 
 #### US-08 — Edit or cancel a scheduled activity
@@ -201,7 +201,7 @@ The user stories above group into seven candidate product features for prioritiz
 
 | Feature ID | Candidate Feature Name | Included User Stories | Priority | MVP Status |
 |---|---|---|---|---|
-| **F-01** | Team & Season Workspace Management | US-01, US-02 | **P0** | Partially implemented in local prototype; season date editing is missing |
+| **F-01** | Team & Season Workspace Management | US-01, US-02 | **P0** | Implemented in local prototype |
 | **F-02** | Multi-Sport Roster & Lifecycle Management | US-03, US-04, US-05 | **P0** | Implemented in local prototype |
 | **F-03** | Team Activity Calendar (Trainings & Matches) | US-06, US-07, US-08 | **P0** | Implemented in local prototype |
 | **F-04** | Honest Attendance & Manual Session Notes | US-09, US-10 | **P0** | Implemented in local prototype |
@@ -217,7 +217,7 @@ The user stories above group into seven candidate product features for prioritiz
 2. Each user story includes concrete, observable acceptance criteria that enforce data honesty (missing values remain unregistered/pending) and multi-sport flexibility.
 3. Supporting personas (`Jordan Lee`, `Sam Patel`, `Taylor Morgan`) and optional AI support (`FR-22`–`FR-25`) are captured as explicit **P2** user stories (`US-15`–`US-19`) without implying active implementation in the MVP.
 4. Full traceability links Personas (Inc. 2), Scenarios (Inc. 3), User Stories (Inc. 4), Requirements (`FR`/`NFR`), and Use Cases (`UC-01`–`UC-06`).
-5. The local prototype exposes a `Historias` view connecting each story to its scenario and available workflow; future P2 stories are labeled as deferred. The workflow coverage has documented gaps: season dates cannot currently be edited, custom sport names are not supported, and calendar navigation is not bounded to season dates.
+5. The local prototype exposes a `Historias` view connecting each story to its scenario and available workflow; future P2 stories are labeled as deferred. The team form supports optional season date edits and named custom sports; the calendar respects the configured season month boundaries.
 
 ## Follow-up
 
