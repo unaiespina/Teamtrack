@@ -1,6 +1,6 @@
 # TeamTrack
 
-Prototipo web para organizar equipos deportivos, temporadas, plantilla, entrenamientos, partidos y registros. El alcance funcional sigue los requisitos de producto acordados para el Incremento 2.
+Prototipo web para organizar equipos deportivos, temporadas, plantilla, entrenamientos, partidos y registros. El prototipo acompaña los entregables académicos de visión (Incremento 1), personas (2), escenarios (3), historias de usuario (4) y lista priorizada/cierre del MVP (5).
 
 ## Empezar
 
@@ -18,7 +18,8 @@ La primera apertura muestra información de ejemplo de un equipo de baloncesto. 
 - Registrar asistencia como presente, ausente, tarde o justificado; lo no registrado permanece pendiente.
 - Guardar notas manuales y resultados con componentes etiquetados (puntos, sets, goles, etc.).
 - Consultar resumen, calendario e historial con estados vacíos y datos ausentes explícitos.
-- Seguir cinco escenarios guiados del entrenador desde la vista Escenarios.
+- Seguir cinco escenarios guiados desde Escenarios y consultar 19 historias trazadas desde Historias.
+- Consultar la lista priorizada F-01–F-07 y los criterios de cierre del MVP.
 - Descargar una copia JSON de los datos del navegador.
 
 ## Alcance actual
@@ -32,5 +33,6 @@ El asistente de IA está fuera del alcance mínimo y no se ha conectado ningún 
 - `PRODUCT_DEFINITION.md`: visión del producto (Incremento 1).
 - `entregables_clase/TeamTrack_Increment_2_Personas_Description.docx`: descripción de personas (Incremento 2).
 - `entregables_clase/TeamTrack_Increment_3_Persona_Scenarios.md` y `.docx`: escenarios para las personas (Incremento 3).
-- Las historias de usuario corresponden al siguiente entregable (Incremento 4).
+- `entregables_clase/TeamTrack_Increment_4_User_Stories.md` y `.docx`: historias de usuario (Incremento 4).
+- `entregables_clase/TeamTrack_Increment_5_Prioritized_Feature_List.md` y `.docx`: priorización y cierre del MVP (Incremento 5).
 

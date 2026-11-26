@@ -52,9 +52,9 @@
     document.querySelector(".team-avatar").textContent = initials(t?.name || "TT");
     document.getElementById("nav-roster-count").textContent = members(false).length;
     document.querySelectorAll(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.view === currentView));
-    const label = { dashboard: "Resumen", roster: "Plantilla", calendar: "Calendario", history: "Historial", scenarios: "Escenarios" }[currentView];
+    const label = { dashboard: "Resumen", roster: "Plantilla", calendar: "Calendario", history: "Historial", scenarios: "Escenarios", stories: "Historias" }[currentView];
     document.getElementById("breadcrumb-view").textContent = label;
-    content.innerHTML = ({ dashboard: renderDashboard, roster: renderRoster, calendar: renderCalendar, history: renderHistory, scenarios: renderScenarios }[currentView])();
+    content.innerHTML = ({ dashboard: renderDashboard, roster: renderRoster, calendar: renderCalendar, history: renderHistory, scenarios: renderScenarios, stories: renderStories }[currentView])();
   }
   function renderScenarios() {
     const scenarios = [
@@ -66,8 +66,36 @@
     ];
     return `<div class="page-heading"><div><span class="eyebrow">GUÍA DEL ENTRENADOR · INCREMENTO 3</span><h1>Escenarios de uso</h1><p>Recorridos breves para las tareas habituales de Alex y un equipo amateur.</p></div></div>
       <section class="scenario-intro"><span class="scenario-mark">☷</span><div><b>Empieza por una situación concreta</b><p>Los pasos describen el trabajo de Alex. Los botones abren la parte del prototipo donde puede realizarlo.</p></div></section>
-      <section class="scenario-grid">${scenarios.map((s, i) => `<article class="scenario-card"><div class="scenario-card-top"><span class="scenario-number">0${i + 1}</span><span class="scenario-persona">Alex · Entrenador</span></div><h2>${esc(s.title)}</h2><p class="scenario-goal">${esc(s.goal)}</p><div class="scenario-detail"><b>Situación</b><p>${esc(s.trigger)}</p></div><div class="scenario-detail"><b>Recorrido</b><ol>${s.steps.map(step => `<li>${esc(step)}</li>`).join("")}</ol></div><div class="scenario-result"><b>Resultado esperado</b><p>${esc(s.outcome)}</p></div><button class="secondary-button scenario-button" data-action="start-scenario" data-scenario="${s.id}">${esc(s.cta)} <span aria-hidden="true">→</span></button></article>`).join("")}</section>
+      <section class="scenario-grid">${scenarios.map((s, i) => `<article class="scenario-card" data-scenario-code="PS-0${i + 1}"><div class="scenario-card-top"><span class="scenario-number">0${i + 1}</span><span class="scenario-persona">Alex · Entrenador</span></div><h2>${esc(s.title)}</h2><p class="scenario-goal">${esc(s.goal)}</p><div class="scenario-detail"><b>Situación</b><p>${esc(s.trigger)}</p></div><div class="scenario-detail"><b>Recorrido</b><ol>${s.steps.map(step => `<li>${esc(step)}</li>`).join("")}</ol></div><div class="scenario-result"><b>Resultado esperado</b><p>${esc(s.outcome)}</p></div><button class="secondary-button scenario-button" data-action="start-scenario" data-scenario="${s.id}">${esc(s.cta)} <span aria-hidden="true">→</span></button></article>`).join("")}</section>
       <section class="scenario-scope"><span class="eyebrow">PERFILES FUTUROS</span><h2>Escenarios que quedan fuera del prototipo</h2><p>El coordinador que supervisa varios equipos, el jugador que consulta su calendario y el familiar que recibe avisos se mantienen como perfiles futuros. El MVP no crea accesos ni muestra datos a esos perfiles.</p></section>`;
+  }
+  const stories = [
+    ["US-01","PS-01","P0","Crear equipo y temporada","Como Alex, quiero crear un equipo y asociarlo a una temporada para organizar sus datos.","Crear equipo","new-team","El equipo válido se guarda y queda activo; una temporada existente se reutiliza."],
+    ["US-02","PS-01","P1","Consultar y editar equipo","Como Alex, quiero consultar y editar el nombre, deporte y fechas para mantenerlos al día.","Editar equipo","edit-team","Editar conserva los registros vinculados al equipo."],
+    ["US-03","PS-02","P0","Añadir integrantes","Como Alex, quiero añadir integrantes con dorsal y función opcionales para crear una plantilla flexible.","Añadir integrante","new-member","El nombre es obligatorio; dorsal y función pueden quedar vacíos."],
+    ["US-04","PS-02","P0","Consultar y buscar plantilla","Como Alex, quiero filtrar la plantilla para verificar quién pertenece al equipo.","Ver plantilla","roster","La búsqueda no cambia registros y el contador refleja miembros activos."],
+    ["US-05","PS-02","P1","Editar o desactivar integrantes","Como Alex, quiero editar o desactivar integrantes sin perder historial.","Gestionar plantilla","roster","Desactivar conserva registros históricos y permite reactivar."],
+    ["US-06","PS-03","P0","Programar actividad","Como Alex, quiero programar entrenamientos y partidos para organizar compromisos.","Programar actividad","new-event","Fecha y hora son obligatorias; rival, lugar y notas son opcionales."],
+    ["US-07","PS-03","P0","Explorar calendario","Como Alex, quiero consultar las actividades por mes para preparar la semana.","Abrir calendario","calendar","Las actividades se ordenan por fecha y calendario vacío informa que no hay eventos."],
+    ["US-08","PS-03","P1","Editar o cancelar actividad","Como Alex, quiero cambiar o cancelar actividades sin borrarlas.","Gestionar calendario","calendar","Cancelar conserva el registro y lo retira de próximas actividades."],
+    ["US-09","PS-04","P0","Registrar asistencia","Como Alex, quiero marcar asistencia para disponer de un registro fiable.","Abrir entrenamiento","open-training","Los estados no seleccionados permanecen sin registrar, nunca son ausencias."],
+    ["US-10","PS-04","P0","Guardar notas manuales","Como Alex, quiero escribir notas en actividades para conservar mis observaciones.","Abrir actividad","open-event","Las notas se guardan en la actividad; no se generan automáticamente."],
+    ["US-11","PS-05","P0","Registrar marcador","Como Alex, quiero guardar resultados configurables para reflejar distintos deportes.","Abrir partido","open-match","El resultado se vincula al partido; los valores ausentes no son cero."],
+    ["US-12","PS-05","P1","Consultar historial","Como Alex, quiero filtrar actividades pasadas para revisar registros y resultados.","Ver historial","history","Muestra eventos pasados del equipo activo del más reciente al más antiguo."],
+    ["US-13","PS-01–05","P0","Consultar resumen","Como Alex, quiero ver el estado del equipo de un vistazo para decidir qué requiere atención.","Ver resumen","dashboard","Los indicadores proceden de registros del equipo activo."],
+    ["US-14","PS-01–05","P1","Exportar copia JSON","Como Alex, quiero descargar mis datos para conservarlos fuera del navegador.","Exportar datos","export","La descarga incluye estado y fecha de exportación sin modificar los datos guardados."],
+    ["US-15","Futuro","P2","Vista de coordinación multi-equipo","Como Jordan, quiero consultar equipos autorizados para coordinar el club.","Fuera del MVP","future","Requiere cuentas y permisos por equipo; no está implementada."],
+    ["US-16","Futuro","P2","Portal de jugador","Como Sam, quiero consultar el calendario compartido en modo lectura.","Fuera del MVP","future","Requiere portal autenticado y protección de notas; no está implementado."],
+    ["US-17","Futuro","P2","Portal familiar","Como Taylor, quiero consultar avisos autorizados del equipo de mi hijo.","Fuera del MVP","future","Requiere autorización y controles de privacidad; no está implementado."],
+    ["US-18","Futuro","P2","Resumen asistido por IA","Como Alex, quiero pedir un resumen basado en registros para revisar tendencias.","Fuera del MVP","future","Requiere integración validada; debe señalar ausencias de datos."],
+    ["US-19","Futuro","P2","Propuestas de IA con aprobación","Como Alex, quiero revisar propuestas antes de guardarlas.","Fuera del MVP","future","Toda propuesta queda en borrador hasta confirmación explícita; no está implementada."]
+  ];
+  const features = [["F-01","Equipo y temporada","US-01–02","P0","Prototipo"],["F-02","Plantilla multi-deporte","US-03–05","P0","Prototipo"],["F-03","Calendario","US-06–08","P0","Prototipo"],["F-04","Asistencia y notas","US-09–10","P0","Prototipo"],["F-05","Resultados e historial","US-11–12","P0","Prototipo"],["F-06","Resumen y exportación","US-13–14","P1","Prototipo"],["F-07","Portales y asistente IA","US-15–19","P2","Futuro · no implementado"]];
+  function renderStories() {
+    return `<div class="page-heading"><div><span class="eyebrow">INCREMENTO 4 · TRAZABILIDAD</span><h1>Historias de usuario</h1><p>Historias, criterios de aceptación y acceso a los flujos del prototipo.</p></div></div>
+      <section class="scenario-intro"><span class="scenario-mark">✓</span><div><b>19 historias · 14 del MVP · 5 futuras</b><p>P0/P1 describen el alcance del entrenador. P2 requiere cuentas, servicios o integraciones que este prototipo local no ofrece.</p></div></section>
+      <section class="story-grid">${stories.map(s => `<article class="story-card"><div class="story-card-top"><b>${s[0]}</b><span class="priority-badge priority-${s[2].toLowerCase()}">${s[2]}</span></div><h2>${esc(s[3])}</h2><p>${esc(s[4])}</p><div class="story-criteria"><b>Criterio de aceptación</b><span>${esc(s[7])}</span></div><div class="story-links"><button class="text-button" data-action="go-scenario" data-scenario-code="${esc(s[1])}">${esc(s[1])} · Ver escenario</button><button class="secondary-button" data-action="start-story" data-story="${s[6]}" ${s[6] === "future" ? "disabled" : ""}>${esc(s[5])} →</button></div></article>`).join("")}</section>
+      <section class="scenario-scope"><span class="eyebrow">INCREMENTO 5 · PRIORIZACIÓN</span><h2>Lista priorizada de funcionalidades</h2><p>“Prototipo” indica que el flujo existe en el navegador; no equivale a producción.</p><div class="feature-list">${features.map(f => `<div class="feature-row"><b>${f[0]}</b><span><strong>${esc(f[1])}</strong><small>${esc(f[2])}</small></span><span class="priority-badge priority-${f[3].toLowerCase()}">${f[3]}</span><span>${esc(f[4])}</span></div>`).join("")}</div><div class="release-note"><b>Cierre y preparación para mercado</b><p>La versión actual es una demostración local con almacenamiento del navegador. Antes de comercializar hacen falta autenticación, roles y permisos en servidor, base de datos compartida, copias recuperables, privacidad y protección de datos, pruebas de seguridad, despliegue y soporte. No se presenta como producto listo para producción.</p></div></section>`;
   }
   function renderDashboard() {
     const t = team(); if (!t) return emptyTeam();
@@ -178,6 +206,25 @@
     const eventCard = e.target.closest("[data-event]"); if (eventCard && !e.target.closest("button")) { showEventDetail(eventCard.dataset.event); return; }
     const b = e.target.closest("[data-action]"); if (!b) { if (e.target === modalBackdrop) closeModal(); return; }
     const action = b.dataset.action;
+    if (action === "go-scenario") {
+      const code = b.dataset.scenarioCode; currentView = "scenarios"; render();
+      document.querySelector(`[data-scenario-code="${code}"]`)?.scrollIntoView({ behavior: "smooth", block: "center" }); return;
+    }
+    if (action === "start-story") {
+      const storyAction = b.dataset.story;
+      if (storyAction === "new-team") showTeamForm(false);
+      else if (storyAction === "edit-team") showTeamForm(true);
+      else if (storyAction === "new-member") showMemberForm();
+      else if (storyAction === "new-event") showEventForm();
+      else if (["open-training", "open-match", "open-event"].includes(storyAction)) {
+        const type = storyAction === "open-training" ? "training" : storyAction === "open-match" ? "match" : null;
+        const matches = sortEvents(events(false)).filter(ev => !type || ev.type === type);
+        const candidate = matches.find(ev => new Date(`${ev.date}T${ev.time || "00:00"}`) <= new Date()) || matches[0];
+        if (candidate) showEventDetail(candidate.id); else toast(type === "training" ? "Programa primero un entrenamiento." : type === "match" ? "Programa primero un partido." : "Programa una actividad primero.");
+      } else if (["roster", "calendar", "history", "dashboard"].includes(storyAction)) { currentView = storyAction; render(); }
+      else if (storyAction === "export") exportData();
+      document.getElementById("sidebar").classList.remove("open"); return;
+    }
     if (action === "start-scenario") {
       const scenario = b.dataset.scenario;
       if (scenario === "team") { closeModal(); currentView = "dashboard"; render(); showTeamForm(false); }
