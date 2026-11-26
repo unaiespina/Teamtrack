@@ -190,8 +190,6 @@ These user stories document requirements derived from supporting personas (**Jor
 | Alex Rivera | PS-03 Schedule the next activity | US-06, US-07, US-08 | FR-10–FR-13, NFR-02 | UC-03 |
 | Alex Rivera | PS-04 Record a completed training session | US-09, US-10 | FR-14, FR-15, FR-18, NFR-05 | UC-04 |
 | Alex Rivera | PS-05 Save a match result & review activity | US-10, US-11, US-12 | FR-15–FR-18, NFR-05, NFR-06, NFR-10 | UC-05, UC-06 |
-| Alex Rivera | PS-05 Save a match result & review activity | US-10, US-11, US-12 | FR-15–FR-18, NFR-05, NFR-06, NFR-10 | UC-05, UC-06 |
-| Alex Rivera | PS-05 Save a match result & review activity | US-11, US-12 | FR-16–FR-18, NFR-05, NFR-06, NFR-10 | UC-05 |
 | Alex Rivera | PS-01–PS-05 Cross-cutting visibility | US-13, US-14 | FR-19–FR-21, NFR-04, NFR-09 | UC-06 |
 | Jordan, Sam, Taylor, Alex (AI) | Future & optional scenarios | US-15–US-19 | FR-22–FR-25, NFR-03, NFR-07 | Future scope |
 
