@@ -29,9 +29,8 @@ El asistente de IA está fuera del alcance mínimo y no se ha conectado ningún 
 
 ## Documentación
 
-- `PRODUCT_DEFINITION.md`: visión, usuarios, límites y alcance.
-- `REQUIREMENTS.md`: backlog priorizado y criterios de aceptación del Incremento 2.
-- `DESIGN.md`: casos de uso y diseño de arquitectura y dominio.
-- `entregables_clase/TeamTrack_Increment_3_Persona_Scenarios.md` y `.docx`: escenarios de las personas y plan de implementación del Incremento 3.
-- `entregables_clase/`: documentos de los incrementos y recursos gráficos.
+- `PRODUCT_DEFINITION.md`: visión del producto (Incremento 1).
+- `entregables_clase/TeamTrack_Increment_2_Personas_Description.docx`: descripción de personas (Incremento 2).
+- `entregables_clase/TeamTrack_Increment_3_Persona_Scenarios.md` y `.docx`: escenarios para las personas (Incremento 3).
+- Las historias de usuario corresponden al siguiente entregable (Incremento 4).
 
