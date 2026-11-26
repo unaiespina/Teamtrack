@@ -52,9 +52,22 @@
     document.querySelector(".team-avatar").textContent = initials(t?.name || "TT");
     document.getElementById("nav-roster-count").textContent = members(false).length;
     document.querySelectorAll(".nav-item").forEach(n => n.classList.toggle("active", n.dataset.view === currentView));
-    const label = { dashboard: "Resumen", roster: "Plantilla", calendar: "Calendario", history: "Historial" }[currentView];
+    const label = { dashboard: "Resumen", roster: "Plantilla", calendar: "Calendario", history: "Historial", scenarios: "Escenarios" }[currentView];
     document.getElementById("breadcrumb-view").textContent = label;
-    content.innerHTML = ({ dashboard: renderDashboard, roster: renderRoster, calendar: renderCalendar, history: renderHistory }[currentView])();
+    content.innerHTML = ({ dashboard: renderDashboard, roster: renderRoster, calendar: renderCalendar, history: renderHistory, scenarios: renderScenarios }[currentView])();
+  }
+  function renderScenarios() {
+    const scenarios = [
+      { id: "team", title: "Preparar el equipo y la temporada", goal: "Organizar la temporada antes de empezar a planificar.", trigger: "Alex empieza una nueva temporada y necesita reunir los datos básicos.", steps: ["Crear o seleccionar una temporada.", "Indicar el nombre del equipo y el deporte.", "Confirmar que el equipo aparece en el espacio de trabajo."], outcome: "El panel identifica el equipo, su deporte y su temporada.", view: "dashboard", action: "new-team", cta: "Preparar equipo" },
+      { id: "roster", title: "Poner al día la plantilla", goal: "Mantener una lista útil sin perder el historial de integrantes.", trigger: "Antes de la primera sesión, Alex revisa quién forma parte del equipo.", steps: ["Abrir Plantilla y revisar integrantes activos.", "Añadir o editar el nombre y los datos opcionales.", "Si alguien deja el equipo, marcarlo como inactivo."], outcome: "La plantilla activa queda actualizada y los integrantes inactivos conservan sus registros.", view: "roster", action: "new-member", cta: "Abrir plantilla" },
+      { id: "schedule", title: "Planificar la próxima actividad", goal: "Dejar visible cuándo y dónde se reúne el equipo.", trigger: "Alex recibe el horario semanal y lo añade al calendario.", steps: ["Programar un entrenamiento o un partido.", "Introducir fecha y hora; añadir lugar y rival si se conocen.", "Guardar y localizar la actividad en el calendario."], outcome: "La actividad aparece en el calendario del equipo con los datos introducidos.", view: "calendar", action: "new-event", cta: "Programar actividad" },
+      { id: "training", title: "Cerrar un entrenamiento", goal: "Registrar lo sucedido después de una sesión.", trigger: "Al terminar el entrenamiento, Alex tiene la asistencia y una nota breve.", steps: ["Abrir un entrenamiento pasado desde Calendario o Historial.", "Marcar el estado de asistencia de cada integrante.", "Añadir notas manuales y guardar el registro."], outcome: "La sesión conserva asistencia y notas; los estados sin guardar no se convierten en ausencias.", view: "calendar", action: "open-training", cta: "Abrir un entrenamiento" },
+      { id: "match", title: "Registrar un partido y revisar la temporada", goal: "Conservar un resultado trazable y consultarlo después.", trigger: "Tras el partido, Alex conoce el marcador y quiere mantenerlo junto al evento.", steps: ["Abrir el partido correspondiente.", "Introducir el componente y los valores del equipo y del rival.", "Guardar y consultar el resultado en el Historial o Resumen."], outcome: "El resultado queda asociado al partido; no se inventan valores si falta información.", view: "calendar", action: "open-match", cta: "Abrir un partido" }
+    ];
+    return `<div class="page-heading"><div><span class="eyebrow">GUÍA DEL ENTRENADOR · INCREMENTO 3</span><h1>Escenarios de uso</h1><p>Recorridos breves para las tareas habituales de Alex y un equipo amateur.</p></div></div>
+      <section class="scenario-intro"><span class="scenario-mark">☷</span><div><b>Empieza por una situación concreta</b><p>Los pasos describen el trabajo de Alex. Los botones abren la parte del prototipo donde puede realizarlo.</p></div></section>
+      <section class="scenario-grid">${scenarios.map((s, i) => `<article class="scenario-card"><div class="scenario-card-top"><span class="scenario-number">0${i + 1}</span><span class="scenario-persona">Alex · Entrenador</span></div><h2>${esc(s.title)}</h2><p class="scenario-goal">${esc(s.goal)}</p><div class="scenario-detail"><b>Situación</b><p>${esc(s.trigger)}</p></div><div class="scenario-detail"><b>Recorrido</b><ol>${s.steps.map(step => `<li>${esc(step)}</li>`).join("")}</ol></div><div class="scenario-result"><b>Resultado esperado</b><p>${esc(s.outcome)}</p></div><button class="secondary-button scenario-button" data-action="start-scenario" data-scenario="${s.id}">${esc(s.cta)} <span aria-hidden="true">→</span></button></article>`).join("")}</section>
+      <section class="scenario-scope"><span class="eyebrow">PERFILES FUTUROS</span><h2>Escenarios que quedan fuera del prototipo</h2><p>El coordinador que supervisa varios equipos, el jugador que consulta su calendario y el familiar que recibe avisos se mantienen como perfiles futuros. El MVP no crea accesos ni muestra datos a esos perfiles.</p></section>`;
   }
   function renderDashboard() {
     const t = team(); if (!t) return emptyTeam();
@@ -165,6 +178,20 @@
     const eventCard = e.target.closest("[data-event]"); if (eventCard && !e.target.closest("button")) { showEventDetail(eventCard.dataset.event); return; }
     const b = e.target.closest("[data-action]"); if (!b) { if (e.target === modalBackdrop) closeModal(); return; }
     const action = b.dataset.action;
+    if (action === "start-scenario") {
+      const scenario = b.dataset.scenario;
+      if (scenario === "team") { closeModal(); currentView = "dashboard"; render(); showTeamForm(false); }
+      if (scenario === "roster") { currentView = "roster"; render(); showMemberForm(); }
+      if (scenario === "schedule") { currentView = "calendar"; render(); showEventForm(); }
+      if (scenario === "training" || scenario === "match") {
+        currentView = "calendar"; render();
+        const type = scenario === "training" ? "training" : "match";
+        const candidate = sortEvents(events()).find(ev => ev.type === type && ev.status !== "cancelled");
+        if (candidate) showEventDetail(candidate.id);
+        else toast(scenario === "training" ? "Programa primero un entrenamiento para registrar la sesión." : "Programa primero un partido para registrar el resultado.");
+      }
+      document.getElementById("sidebar").classList.remove("open"); return;
+    }
     if (action === "new-team") { closeModal(); showTeamForm(false); }
     if (action === "edit-team") showTeamForm(true);
     if (action === "new-member") showMemberForm();
@@ -190,3 +217,4 @@
   document.addEventListener("input", e => { if (e.target.id === "member-search") { searchTerm = e.target.value; const pos = e.target.selectionStart; render(); const input = document.getElementById("member-search"); input.focus(); input.setSelectionRange(pos, pos); } });
   render();
 })();
+
